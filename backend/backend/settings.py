@@ -87,7 +87,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://connect4-backend-dacl.onrender.com"
+    "https://connect4-backend-dacl.onrender.com",
+    "https://connect4-game-hupg.onrender.com"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
