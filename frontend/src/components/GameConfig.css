@@ -1,0 +1,78 @@
+.game-config {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .game-config div {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  .game-config label {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .game-config select,
+  .game-config input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #333;
+    transition: border-color 0.3s;
+  }
+  
+  .game-config select:focus,
+  .game-config input[type="file"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .game-config input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .game-config button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .game-config button:hover {
+    background-color: #218838;
+  }
+  
+  .game-config button:focus {
+    outline: none;
+  }
+  
+  .game-config .file-upload {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .game-config input[type="file"] {
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
