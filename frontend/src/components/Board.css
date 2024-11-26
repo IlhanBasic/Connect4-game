@@ -1,62 +1,77 @@
 .board {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .evaluation-scores {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
-  .score {
-    margin: 0 8px;
-    padding: 4px 8px;
-    background-color: #f4f4f4;
-    border-radius: 4px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .columns {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .column {
-    display: flex;
-    flex-direction: column-reverse;
-    margin: 0 5px;
-    cursor: pointer;
-  }
-  
-  .cell {
-    width: 60px;
-    height: 60px;
-    margin: 4px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
-    border: 2px solid #ccc;
-    transition: background-color 0.3s ease;
-  }
-  
-  .cell.player1 {
-    background-color: #ff5757; /* Player 1 Red */
-  }
-  
-  .cell.player2 {
-    background-color: #ffcc00; /* Player 2 Yellow */
-  }
-  
-  .cell:hover {
-    background-color: #ddd; /* Light hover effect */
-  }
-  
-  .column:hover .cell {
-    cursor: pointer;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.evaluation-scores {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.score {
+  margin: 0 8px;
+  padding: 4px 8px;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.columns {
+  display: flex;
+  justify-content: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.cell {
+  width: 60px;
+  height: 60px;
+  margin: 4px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.cell.player1 {
+  background-color: #ff5757;
+}
+
+.cell.player2 {
+  background-color: #ffcc00;
+}
+
+.cell:hover {
+  background-color: #ddd;
+}
+
+.column:hover .cell {
+  cursor: pointer;
+}
+
+.player-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.player-icon-border {
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  padding: 5px;
+}

@@ -1,4 +1,7 @@
 import './Board.css';
+import yellowPlayer from '../assets/yellow.png';
+import redPlayer from '../assets/red.png';
+
 const Board = ({ board, onColumnClick, gameActive, evaluationScores }) => {
   const rows = 6;
   const cols = 7;
@@ -25,7 +28,22 @@ const Board = ({ board, onColumnClick, gameActive, evaluationScores }) => {
               <div
                 key={`${row}-${col}`}
                 className={`cell player${board[row][col]}`}
-              />
+              >
+                {board[row][col] === 1 && (
+                  <img
+                    src={yellowPlayer}
+                    alt="Player 1"
+                    className="player-icon"
+                  />
+                )}
+                {board[row][col] === 2 && (
+                  <img
+                    src={redPlayer}
+                    alt="Player 2"
+                    className="player-icon"
+                  />
+                )}
+              </div>
             ))}
           </div>
         ))}
