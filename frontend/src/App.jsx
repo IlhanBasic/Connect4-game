@@ -14,29 +14,41 @@ const App = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [thinkingTime, setThinkingTime] = useState(null);
   const [gameType, setGameType] = useState('');
-
   const initializeGame = async (config) => {
     const gameConfig = {
-      game_type: config.gameType, 
-      difficulty: config.difficulty,
-      initial_state: config.initialState,  
+        game_type: config.gameType,
+        difficulty: config.difficulty,
+        initial_state: config.initialState ? config.initialState : null,
     };
-  
+
     console.log('Game configuration:', gameConfig);
+    
     try {
-      const game = await api.createGame(gameConfig);  
-      setGameId(game.id);
-      setBoard(game.board_state);
-      setCurrentPlayer(game.current_player);
-      setGameType(config.gameType);  // Store the game type
-      setGameStarted(true);
-      setGameStatus(null);
-      setIsPaused(false);
-      setThinkingTime(null);
+        const game = await api.createGame(gameConfig);  
+        
+        let newBoard = game.board_state; // Uzimamo board_state iz odgovora servera
+
+        // Ako postoji initialState, primenite poteze na board
+        if (config.initialState) {
+            for (let move of config.initialState) {
+                const updatedGame = await api.makeMove(game.id, move);
+                newBoard = updatedGame.board_state; // Ažuriramo newBoard sa vraćenim stanjem
+                console.log(`Move ${move} applied. New board state:`, newBoard);
+            }
+        }
+
+        setBoard(newBoard);
+        setGameId(game.id);
+        setCurrentPlayer(game.current_player);
+        setGameType(config.gameType);
+        setGameStarted(true);
+        setGameStatus(null);
+        setIsPaused(false);
+        setThinkingTime(null);
     } catch (error) {
-      console.error('Error initializing game:', error);
+        console.error('Error initializing game:', error);
     }
-  };
+};
 
   // Function to simulate computer move
   const simulateComputerMove = useCallback(async () => {

@@ -5,6 +5,8 @@ from .models import Game, GameMove
 from .serializers import GameSerializer, GameMoveSerializer
 from .agents import MinimaxABAgent, NegascoutAgent
 import numpy as np
+import datetime
+
 
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
@@ -24,17 +26,17 @@ class GameViewSet(viewsets.ModelViewSet):
     def make_move(self, request, pk=None):
         game = self.get_object()
         if game.is_finished:
-            return Response({"error": "Game is already finished"}, 
-                          status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Game is already finished"},
+                            status=status.HTTP_400_BAD_REQUEST)
 
         column = request.data.get('column')
         if not self.is_valid_move(game.board_state, column):
-            return Response({"error": "Invalid move"}, 
-                          status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Invalid move"},
+                            status=status.HTTP_400_BAD_REQUEST)
 
         # Make player move
         self.apply_move(game, column)
-        
+
         # If playing against computer, make computer move
         if game.game_type == 'human-computer' and not game.is_finished:
             agent = self.get_computer_agent(game.difficulty)
@@ -53,32 +55,44 @@ class GameViewSet(viewsets.ModelViewSet):
             return False
         return board[0][column] == 0
 
-    def apply_move(self, game, column):
-        board = game.board_state
-        for row in range(5, -1, -1):
-            if board[row][column] == 0:
-                board[row][column] = game.current_player
-                break
 
-        game.board_state = board
-        
-        # Check for win or draw
-        if self.check_win(board, game.current_player):
-            game.is_finished = True
-            game.winner = game.current_player
-        elif self.is_board_full(board):
-            game.is_finished = True
-        else:
-            game.current_player = 3 - game.current_player  # Switch between 1 and 2
+def apply_move(self, game, column):
+    board = game.board_state
+    for row in range(5, -1, -1):
+        if board[row][column] == 0:
+            board[row][column] = game.current_player
+            break
 
-        game.save()
-        
-        # Record the move
-        GameMove.objects.create(
-            game=game,
-            column=column,
-            player=game.current_player
-        )
+    game.board_state = board
+
+    # Check for win or draw
+    if self.check_win(board, game.current_player):
+        game.is_finished = True
+        game.winner = game.current_player
+    elif self.is_board_full(board):
+        game.is_finished = True
+    else:
+        game.current_player = 3 - game.current_player  # Switch between 1 and 2
+
+    game.save()
+
+    # Record the move
+    GameMove.objects.create(
+        game=game,
+        column=column,
+        player=game.current_player
+    )
+
+    # Upisivanje poteza u fajl koraci.txt
+    self.record_move_to_file(game.id, column, game.current_player)
+
+
+def record_move_to_file(self, game_id, column, player):
+    move_record = f"Game ID: {game_id}, Player: {
+        player}, Column: {column}, Time: {datetime.now()}\n"
+
+    with open('koraci.txt', 'a') as file:
+        file.write(move_record)
 
     def check_win(self, board, player):
         # Check horizontal

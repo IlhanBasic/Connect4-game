@@ -1,5 +1,6 @@
 import './GameConfig.css';
 import React from 'react';
+
 const GameConfig = ({ onStartGame }) => {
   const [gameType, setGameType] = React.useState('human-human');
   const [difficulty, setDifficulty] = React.useState('easy');
@@ -9,20 +10,26 @@ const GameConfig = ({ onStartGame }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setGameFile(e.target.result);
-      };
-      reader.readAsText(file);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const fileContent = e.target.result;
+            const moves = fileContent
+                .split('\n') // Razdvajanje linija
+                .map(line => line.trim()) // Uklanjanje praznina
+                .filter(line => line !== '' && !isNaN(line)) // Ignorisanje praznih linija i ne-numeričkih vrednosti
+                .map(Number); // Konvertovanje u brojeve
+            setGameFile(moves); // Čuvamo niz poteza
+        };
+        reader.readAsText(file);
     }
-  };
-
+};
+  console.log('Load from file:', loadFromFile);
   const handleSubmit = (e) => {
     e.preventDefault();
     onStartGame({
       gameType,
       difficulty,
-      initialState: loadFromFile ? gameFile : null
+      initialState: loadFromFile ? gameFile : null, // Prosleđuje poteze ako je fajl učitan
     });
   };
 
