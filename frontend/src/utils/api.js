@@ -1,8 +1,8 @@
 const API_URL = 'https://connect4-backend-dacl.onrender.com/api';
+// const API_URL = 'http://localhost:8000/api';
 
 export default {
   createGame: async (gameConfig) => {
-    // Ensure that the gameConfig includes the required "game_type"
     if (!gameConfig.game_type) {
       throw new Error('game_type is required');
     }
