@@ -7,7 +7,7 @@ const GameInfo = ({ currentPlayer, thinkingTime, gameStatus, onPause, isPaused }
         {gameStatus ? (
           <h2>{gameStatus}</h2>
         ) : (
-          <h2>Current Player: {currentPlayer === 1 ? 'Red' : 'Yellow'}</h2>
+          <h2>Current Player: {currentPlayer === 2 ? 'Red' : 'Yellow'}</h2>
         )}
       </div>
       {thinkingTime !== null && (

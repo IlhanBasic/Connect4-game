@@ -24,27 +24,30 @@ const Board = ({ board, onColumnClick, gameActive, evaluationScores }) => {
             className="column"
             onClick={() => gameActive && onColumnClick(col)}
           >
-            {Array(rows).fill(null).map((_, row) => (
-              <div
-                key={`${row}-${col}`}
-                className={`cell player${board[row][col]}`}
-              >
-                {board[row][col] === 1 && (
-                  <img
-                    src={yellowPlayer}
-                    alt="Player 1"
-                    className="player-icon"
-                  />
-                )}
-                {board[row][col] === 2 && (
-                  <img
-                    src={redPlayer}
-                    alt="Player 2"
-                    className="player-icon"
-                  />
-                )}
-              </div>
-            ))}
+            {Array(rows).fill(null).map((_, row) => {
+              const reverseRow = rows - 1 - row; 
+              return (
+                <div
+                  key={`${reverseRow}-${col}`}
+                  className={`cell player${board[reverseRow][col]}`}
+                >
+                  {board[reverseRow][col] === 1 && (
+                    <img
+                      src={yellowPlayer}
+                      alt="Player 1"
+                      className="player-icon"
+                    />
+                  )}
+                  {board[reverseRow][col] === 2 && (
+                    <img
+                      src={redPlayer}
+                      alt="Player 2"
+                      className="player-icon"
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
         ))}
       </div>
